@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba recaptcha</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recaptcha</h1>
+    <form id="captcha-form" action="#" method="POST" onsubmit="return validateForm()">
+        <div class="g-recaptcha" data-sitekey="6LfiONUpAAAAAGYErHr9EfnuC-WfTUXzhyJDN1uG"></div>
+        <div class="error-message" id="captcha-error-message"></div>
+        <br/>
+        <input type="submit" value="Submit">
+    </form>
+    <script type="text/javascript">
+        const onloadCallback = () => {
+            console.log("reCAPTCHA is ready!");
+        };
+
+        const validateForm = () => {
+        const response = grecaptcha.getResponse();
+        const errorMessage = document.getElementById("captcha-error-message");
+        
+        errorMessage.innerText = !response ? `Por favor, completa el reCAPTCHA antes de enviar el formulario.` : "";
+        return !!response;
+    };
+
+    </script>
+</body>
+</html>
+
